@@ -1,0 +1,40 @@
+module load gcc/12.4.0
+module load miniforge
+module load cuda/12.8.1
+module load cudnn
+echo $CUDA_HOME
+#/sw/ubuntu2204/ebu082025/software/common/core/cuda/12.8.1
+which nvcc
+#/sw/ubuntu2204/ebu082025/software/common/core/cuda/12.8.1/bin/nvcc
+check all the paths are updated in $PATH
+
+#compile env
+conda create -n compile_py310 python=3.10 -y
+conda install --name compile_py310 conda #UVA CS compute cluster caveat
+conda activate compile_py310
+conda install -y -c conda-forge cmake ninja setuptools wheel
+cd examples/cpu/inference/python/llm
+bash tools/env_setup.sh 6
+#exit
+
+#ssh again
+#module loads
+conda create -n py310 python=3.10 -y
+conda install --name py310 conda
+conda activate py310
+bash tools/env_setup.sh 1
+
+cd lia/cxl 
+./build.sh
+cd ../..
+#exit
+
+module load gcc/11.4.0 #downgraded to load numactl
+module load numactl #may be only load when needed after the env_setup.sh build is complete
+#module loads, also numactl
+conda activate py310
+cd examples/cpu/inference/python/llm
+bash tools/env_activate.sh
+
+export HF_HOME=/bigtemp/vyn9mp/hf_cache/
+./kk_run.sh

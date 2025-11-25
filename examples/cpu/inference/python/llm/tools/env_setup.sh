@@ -154,7 +154,7 @@ if [ $((${MODE} & 0x02)) -ne 0 ]; then
         fi
         echo "python -m pip install torch==${VER_TORCH} --index-url https://download.pytorch.org/whl/" >> ${AUX_INSTALL_SCRIPT}
         # Install PyTorch and Intel® Extension for PyTorch*
-        cp intel-extension-for-pytorch/scripts/compile_bundle.sh .
+	cp 25ISCA-LIA_AMXGPU/scripts/compile_bundle.sh .
         sed -i "s/VER_IPEX=.*/VER_IPEX=/" compile_bundle.sh
         bash compile_bundle.sh 1
         cp intel-extension-for-pytorch/dist/*.whl ${WHEELFOLDER}
@@ -202,12 +202,12 @@ if [ $((${MODE} & 0x02)) -ne 0 ]; then
     git checkout ${COMMIT_ONECCL}
     mkdir build
     cd build
-    cmake -DBUILD_EXAMPLES=FALSE -DBUILD_FT=FALSE ..
+    cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5  -DBUILD_EXAMPLES=FALSE -DBUILD_FT=FALSE ..
     make -j install
     cd ../..
     cp -r oneCCL/build/_install ${CCLFOLDER}
     rm -rf oneCCL
-    cd intel-extension-for-pytorch/examples/cpu/inference/python/llm
+    #cd intel-extension-for-pytorch/examples/cpu/inference/python/llm
 fi
 if [ $((${MODE} & 0x01)) -ne 0 ]; then
     conda install -y mkl

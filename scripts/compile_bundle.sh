@@ -35,7 +35,7 @@ cd ${BASEFOLDER}
 if [ ! -d intel-extension-for-pytorch ]; then
     git clone https://github.com/intel/intel-extension-for-pytorch.git intel-extension-for-pytorch
 fi
-cd intel-extension-for-pytorch
+cd 25ISCA-LIA_AMXGPU
 if [ ! -z "${VER_IPEX}" ]; then
     rm -rf * > /dev/null
     git checkout . > /dev/null
@@ -166,7 +166,7 @@ if [ $((${MODE} & 0x01)) -ne 0 ]; then
     git submodule update --init --recursive
     sed '107 a\
                 "CMAKE_CUDA_ARCHITECTURES": "native",\
-                "CMAKE_CUDA_COMPILER": "/usr/local/cuda/bin/nvcc",' setup.py > tmpfile && mv tmpfile setup.py
+                "CMAKE_CUDA_COMPILER": "/sw/ubuntu2204/ebu082025/software/common/core/cuda/12.8.1/bin/nvcc",' setup.py > tmpfile && mv tmpfile setup.py
     cd ..
 fi
 ABI=$(python -c "import torch; print(int(torch._C._GLIBCXX_USE_CXX11_ABI))")

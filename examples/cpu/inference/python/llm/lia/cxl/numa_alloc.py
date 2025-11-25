@@ -5,7 +5,7 @@ import numpy as np
 
 # Load the shared library
 # lib = ctypes.CDLL('./libnuma_alloc.so')
-lib = ctypes.CDLL('/home/ubuntu/miniconda3/envs/py310/lib/python3.10/site-packages/transformers/models/opt/libnuma_alloc.so')
+lib = ctypes.CDLL('/u/vyn9mp/.conda/envs/py310/lib/python3.10/site-packages/transformers/models/opt/libnuma_alloc.so')
 
 # Define the function prototypes
 

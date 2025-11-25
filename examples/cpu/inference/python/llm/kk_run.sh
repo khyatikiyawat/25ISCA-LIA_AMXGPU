@@ -1,0 +1,1 @@
+OMP_NUM_THREADS=32 numactl -m 0 -C 0-31 python run.py --benchmark -m facebook/opt-30b --dtype bfloat16 --ipex --input-tokens 32 --max-new-tokens 32 --batch-size 64 --token-latency --num-iter 1 --num-warmup 0 --greedy --prefill-policy 0 --decoding-policy 1 --gpu-percentage 10 --num-minibatch 2 --pin-weight
